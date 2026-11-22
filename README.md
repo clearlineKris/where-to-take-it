@@ -10,6 +10,14 @@ This is an independent, unofficial guide. It is not a government website. The pr
 
 This is a new repo. It is not the `clearlinekris.github.io` user site.
 
+### One-time Pages enablement
+
+The Actions workflow can **build** the site, but GitHub will not serve it until Pages is turned on once for this repo. The Actions `GITHUB_TOKEN` is not allowed to create the Pages site (`Resource not accessible by integration`).
+
+1. Open [Settings → Pages](https://github.com/clearlineKris/where-to-take-it/settings/pages).
+2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
+3. Save, then re-run the **Deploy GitHub Pages** workflow from the Actions tab, or trigger it with the `user-GitHub-xai` `actions_run_trigger` call documented below (`method=run_workflow`, `workflow_id=pages.yml`, `ref=main`).
+
 ## Niche
 
 **Household drop-off and “where do I take this?”** — paint, mattresses, batteries, TVs, tires, appliances, used oil, and similar items that do not belong in the regular trash.

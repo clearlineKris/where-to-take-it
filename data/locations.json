@@ -1,0 +1,437 @@
+{
+  "region": {
+    "id": "twin-cities",
+    "name": "Minneapolis–Saint Paul",
+    "state": "MN",
+    "summary": "Official city and county drop-off sites in the Twin Cities metro. Hours, fees, and accepted items are copied from each agency's own page and dated. Rules change — confirm before you drive.",
+    "seven_county": ["Anoka", "Carver", "Dakota", "Hennepin", "Ramsey", "Scott", "Washington"]
+  },
+  "locations": [
+    {
+      "id": "minneapolis-south-transfer",
+      "name": "Minneapolis South Transfer Station",
+      "agency": "City of Minneapolis Public Works, Solid Waste & Recycling",
+      "city": "Minneapolis",
+      "state": "MN",
+      "zip": "55407",
+      "address": "2850 20th Ave S, Minneapolis, MN 55407",
+      "phone": "612-673-2917",
+      "email": "SWRcustomer@minneapolismn.gov",
+      "website": "https://www.minneapolismn.gov/resident-services/garbage-recycling-cleanup/garbage/garbage-drop-off-site/drop-off-items-and-fees/",
+      "hours": [
+        {"days": "Tuesday–Friday", "time": "12:30–7:30 p.m."},
+        {"days": "Saturday", "time": "8:30 a.m.–3:30 p.m."},
+        {"days": "Sunday–Monday", "time": "Closed"}
+      ],
+      "office_hours": "Voucher office: Monday–Friday, 8 a.m.–4:30 p.m. You must request a voucher in advance by phone; you cannot get one at the station.",
+      "residency": "City of Minneapolis garbage customers (vouchers) or Minneapolis water-bill customers (pay-per-use pass). You must have City garbage or water service to use the site.",
+      "proof_required": true,
+      "appointment": "Call 612-673-2917 during office hours to request a voucher or pay-per-use pass before you go. Vouchers cannot be scheduled on-site.",
+      "accepts": [
+        "Household garbage and furniture",
+        "Large recyclable items (limit of two per voucher): appliances, electronics, mattresses, and box springs (each mattress or box spring counts as one item)",
+        "Scrap metal",
+        "Shingles and building materials",
+        "Tires (limit of eight per voucher, with or without rims)"
+      ],
+      "does_not_accept": [
+        "Asbestos",
+        "Automobile parts",
+        "Dirt and sod",
+        "Fire-damaged items",
+        "Hazardous materials",
+        "Liquids",
+        "Paint or paint cans",
+        "Railroad ties",
+        "Yard waste"
+      ],
+      "fees": [
+        "City garbage customers: up to six cleanup vouchers per year (each covers up to 2,000 lb of garbage or construction debris and up to two large recyclable items) and up to two tire vouchers (up to eight tires each). Extra fees are billed to the utility account: $15 administrative fee if you go over limits; $25 each for an extra appliance, electronic item, mattress, or box spring; $41 per ton over the 2,000 lb limit; tires over the voucher limit are $6 / $14 / $25 each by size.",
+        "Pay-per-use (Minneapolis water bill, no City garbage service): $15 administrative fee, $40 minimum, $117.86 per ton for mixed garbage and C&D, $122.05 per ton for C&D only, $25 each for an appliance, electronic item, mattress, or box spring, and tire fees of $6 / $14 / $25 by size.",
+        "Cash, checks, and credit cards are not accepted at the station. Fees go on the property utility bill."
+      ],
+      "notes": [
+        "The voucher holder must remain on site. Material must come from the property the voucher was issued for.",
+        "Each voucher is one load, one trip, one vehicle.",
+        "You can authorize a friend, family member, contractor, renter, or employee to use your voucher; electronic signatures are not accepted on the authorization form."
+      ],
+      "item_flags": {
+        "mattresses": "yes_fee_or_voucher",
+        "paint": "no",
+        "batteries_hhw": "no",
+        "tvs": "yes_fee_or_voucher",
+        "tires": "yes_fee_or_voucher",
+        "appliances": "yes_fee_or_voucher",
+        "used_oil": "no",
+        "recyclables": "limited",
+        "garbage": "yes"
+      },
+      "sources": [
+        {
+          "title": "City of Minneapolis — Drop-off items and fees",
+          "url": "https://www.minneapolismn.gov/resident-services/garbage-recycling-cleanup/garbage/garbage-drop-off-site/drop-off-items-and-fees/",
+          "page_updated": "2026-09-09"
+        },
+        {
+          "title": "City of Minneapolis — Vouchers for garbage drop-off",
+          "url": "https://www.minneapolismn.gov/resident-services/garbage-recycling-cleanup/garbage/garbage-drop-off-site/garbage-vouchers/",
+          "page_updated": "2026-06-29"
+        }
+      ],
+      "last_checked": "2026-11-20"
+    },
+    {
+      "id": "hennepin-brooklyn-park",
+      "name": "Hennepin County Brooklyn Park Drop-off Facility",
+      "agency": "Hennepin County Environment and Energy",
+      "city": "Brooklyn Park",
+      "state": "MN",
+      "zip": "55445",
+      "address": "8100 Jefferson Highway, Brooklyn Park, MN 55445",
+      "phone": "612-348-3777",
+      "email": "environment@hennepin.us",
+      "website": "https://www.hennepincounty.gov/services/environment/hazardous-waste-households/drop-off-household-hazardous-waste-recycling",
+      "hours": [
+        {"days": "Tuesday–Saturday", "time": "9 a.m.–5 p.m."},
+        {"days": "Sunday–Monday", "time": "Closed"}
+      ],
+      "office_hours": "Closed Memorial Day, Juneteenth, Independence Day, Labor Day, Thanksgiving Day, Christmas Day, and New Year's Day.",
+      "residency": "Hennepin County households for most materials. Household hazardous waste is also accepted from Anoka, Carver, Dakota, Ramsey, Scott, and Washington County households. Sherburne and Wright County residents are not eligible. Businesses are generally not accepted, with limited recycling and organics exceptions.",
+      "proof_required": true,
+      "appointment": "No appointment is listed for ordinary drop-off. Stay in your vehicle unless staff directs otherwise. Check the Green Disposal Guide, email environment@hennepin.us, or call 612-348-3777 before you go.",
+      "accepts": [
+        "Household hazardous waste: paint, stain, varnish, solvents, driveway sealer (five-gallon pails limited to three per year), pesticides, fluorescent bulbs (limit 25 per year), aerosols, pool chemicals, mercury thermometers and thermostats, oil filters, automotive fluids, motor oil, gas and other fuels (containers 5 gallons or less; fuel cans are left to be emptied)",
+        "All battery types (bag household batteries or tape the terminals)",
+        "Needles and sharps (follow the Green Disposal Guide prep rules)",
+        "Electronics (limit five of the same type per year), including computer peripherals, audio/video equipment, and phones",
+        "TVs, computer monitors, and laptops ($10 each)",
+        "Large appliances ($15 each)",
+        "Mattresses and box springs ($25 each) — Brooklyn Park only",
+        "Tires ($5 each, with or without rims; less than 4' diameter; no bicycle tires; up to 16 per load and 32 per household per year)",
+        "Household recycling (cardboard 3'×3' or smaller, cartons, glass, metal, paper, plastics) and organics in BPI-certified bags (limit five bags per day) from Hennepin County households and, for recycling/organics, some small businesses"
+      ],
+      "does_not_accept": [
+        "Garbage",
+        "Ammunition, asbestos, explosives, infectious waste",
+        "Business hazardous waste",
+        "Carpet, concrete or asphalt, construction or remodeling debris, wood, yard and tree waste",
+        "Empty gas cans",
+        "Furniture",
+        "Medicines (use county medicine drop boxes instead)",
+        "Non-reusable textiles"
+      ],
+      "fees": [
+        "Tires: $5 each.",
+        "TVs, computer monitors, and laptops: $10 each.",
+        "Large appliances: $15 each.",
+        "Mattresses and box springs: $25 each item (Brooklyn Park only). A factory-split box spring counts as two pieces.",
+        "Most household hazardous waste, batteries, and ordinary recycling are accepted without a listed drop-off charge for eligible households."
+      ],
+      "notes": [
+        "This is the only Hennepin County drop-off facility that accepts mattresses and box springs.",
+        "Bring proof of residency such as a driver's license or utility bill.",
+        "Transport hazardous waste in sealed, labeled containers of 5 gallons or less, upright, in a plastic-lined box.",
+        "Items should be in the trunk, truck bed, or trailer. Residents should remain in their vehicles unless directed otherwise.",
+        "Does not accept waterbeds, air mattresses, hospital bed frames, sleeper sofas, business mattresses, or soiled or bedbug-infested mattresses.",
+        "A Free Product Center inside the facility offers leftover usable products (paints, cleaners, and similar) with weekly limits. Residents must be 18 or older; reselling is prohibited."
+      ],
+      "item_flags": {
+        "mattresses": "yes_fee",
+        "paint": "yes",
+        "batteries_hhw": "yes",
+        "tvs": "yes_fee",
+        "tires": "yes_fee",
+        "appliances": "yes_fee",
+        "used_oil": "yes",
+        "recyclables": "yes",
+        "garbage": "no"
+      },
+      "sources": [
+        {
+          "title": "Hennepin County — Drop-off household hazardous waste and recycling",
+          "url": "https://www.hennepincounty.gov/services/environment/hazardous-waste-households/drop-off-household-hazardous-waste-recycling",
+          "page_updated": null
+        },
+        {
+          "title": "Hennepin County Green Disposal Guide — Mattresses and box springs",
+          "url": "https://www.hennepincounty.gov/green-disposal-guide/items/mattresses",
+          "page_updated": null
+        }
+      ],
+      "last_checked": "2026-11-20"
+    },
+    {
+      "id": "hennepin-bloomington",
+      "name": "Hennepin County Bloomington Drop-off Facility",
+      "agency": "Hennepin County Environment and Energy",
+      "city": "Bloomington",
+      "state": "MN",
+      "zip": "55431",
+      "address": "1400 West 96th Street, Bloomington, MN 55431",
+      "phone": "612-348-3777",
+      "email": "environment@hennepin.us",
+      "website": "https://www.hennepincounty.gov/services/environment/hazardous-waste-households/drop-off-household-hazardous-waste-recycling",
+      "hours": [
+        {"days": "Tuesday–Saturday", "time": "9 a.m.–5 p.m."},
+        {"days": "Sunday–Monday", "time": "Closed"}
+      ],
+      "office_hours": "Closed Memorial Day, Juneteenth, Independence Day, Labor Day, Thanksgiving Day, Christmas Day, and New Year's Day.",
+      "residency": "Hennepin County households for most materials. Household hazardous waste is also accepted from Anoka, Carver, Dakota, Ramsey, Scott, and Washington County households. Sherburne and Wright County residents are not eligible.",
+      "proof_required": true,
+      "appointment": "No appointment is listed for ordinary drop-off. Stay in your vehicle unless staff directs otherwise. Check the Green Disposal Guide or call 612-348-3777 before you go.",
+      "accepts": [
+        "The same household hazardous waste, batteries, sharps, electronics, TVs/monitors/laptops, large appliances, tires, recycling, and organics listed for Hennepin County drop-off facilities",
+        "Cardboard is limited to one pickup-truck load per visit here; larger household cardboard loads should go to Brooklyn Park. Cardboard must be 3'×3' or smaller."
+      ],
+      "does_not_accept": [
+        "Mattresses and box springs (take those to Brooklyn Park)",
+        "The same excluded materials as the Brooklyn Park facility, including garbage, furniture, medicines, construction debris, and business hazardous waste"
+      ],
+      "fees": [
+        "Tires: $5 each.",
+        "TVs, computer monitors, and laptops: $10 each.",
+        "Large appliances: $15 each.",
+        "Most household hazardous waste, batteries, and ordinary recycling are accepted without a listed drop-off charge for eligible households."
+      ],
+      "notes": [
+        "Do not bring mattresses here. Hennepin County accepts mattresses only at Brooklyn Park.",
+        "Bring proof of residency. Transport hazardous waste in sealed, labeled containers of 5 gallons or less.",
+        "The Bloomington Free Product Center was announced as temporarily closed beginning May 18 due to construction; the drop-off facility itself remains open. Confirm current reuse-center status before you go."
+      ],
+      "item_flags": {
+        "mattresses": "no",
+        "paint": "yes",
+        "batteries_hhw": "yes",
+        "tvs": "yes_fee",
+        "tires": "yes_fee",
+        "appliances": "yes_fee",
+        "used_oil": "yes",
+        "recyclables": "yes",
+        "garbage": "no"
+      },
+      "sources": [
+        {
+          "title": "Hennepin County — Drop-off household hazardous waste and recycling",
+          "url": "https://www.hennepincounty.gov/services/environment/hazardous-waste-households/drop-off-household-hazardous-waste-recycling",
+          "page_updated": null
+        },
+        {
+          "title": "Hennepin County Green Disposal Guide — Mattresses and box springs",
+          "url": "https://www.hennepincounty.gov/green-disposal-guide/items/mattresses",
+          "page_updated": null
+        }
+      ],
+      "last_checked": "2026-11-20"
+    },
+    {
+      "id": "ramsey-environmental-center",
+      "name": "Ramsey County Environmental Center",
+      "agency": "Ramsey County",
+      "city": "Roseville",
+      "state": "MN",
+      "zip": "55113",
+      "address": "1700 Kent Street, Roseville, MN 55113",
+      "phone": "651-633-3279",
+      "email": null,
+      "website": "https://www.ramseycountymn.gov/residents/recycling-waste/environmental-center",
+      "hours": [
+        {"days": "Tuesday–Friday", "time": "11 a.m.–6 p.m."},
+        {"days": "Saturday", "time": "9 a.m.–4 p.m."},
+        {"days": "Sunday–Monday", "time": "Closed"}
+      ],
+      "office_hours": "Closed on county holidays and Christmas Eve. Recycling & Disposal Hotline: 651-633-3279.",
+      "residency": "Free for residents of Ramsey, Anoka, Carver, Dakota, Hennepin, Scott, and Washington counties (as stated on the Environmental Center page).",
+      "proof_required": false,
+      "appointment": "No appointment is listed on the Environmental Center page. Call the Recycling & Disposal Hotline at 651-633-3279 if you are unsure whether an item is accepted.",
+      "accepts": [
+        "Household hazardous waste (products whose labels say caution, warning, danger, or poison and still contain product)",
+        "Electronics, countertop appliances, and small electric items",
+        "Household recycling",
+        "Scrap metal",
+        "Food scraps",
+        "Plastic bags and film",
+        "Yard signs",
+        "Propane tanks (full or empty)",
+        "The county also lists 24/7 used oil and filter collection, a reuse room, and a free lead fishing tackle exchange on its household hazardous waste page"
+      ],
+      "does_not_accept": [
+        "The Environmental Center pages reviewed for this listing do not include mattresses, box springs, or bulky furniture among accepted items. Confirm any bulky-item question with the hotline before you drive.",
+        "This location's public pages are for household waste, not business hazardous waste."
+      ],
+      "fees": [
+        "The Environmental Center page states drop-off is free for residents of the seven metro counties listed above. Confirm current fees for any special item by calling 651-633-3279."
+      ],
+      "notes": [
+        "This facility replaced earlier Ramsey County collections at Bay West and mobile household hazardous waste sites.",
+        "Empty containers, except propane tanks, may be placed in the trash, according to the county's household hazardous waste page. All propane tanks (full or empty) can be brought here.",
+        "Mattresses are not listed as accepted on the Environmental Center or household hazardous waste pages checked on November 20, 2026."
+      ],
+      "item_flags": {
+        "mattresses": "not_listed",
+        "paint": "likely_hhw",
+        "batteries_hhw": "likely_hhw",
+        "tvs": "likely_electronics",
+        "tires": "not_listed",
+        "appliances": "small_only",
+        "used_oil": "yes",
+        "recyclables": "yes",
+        "garbage": "no"
+      },
+      "sources": [
+        {
+          "title": "Ramsey County — Environmental Center",
+          "url": "https://www.ramseycountymn.gov/residents/recycling-waste/environmental-center",
+          "page_updated": null
+        },
+        {
+          "title": "Ramsey County — Household hazardous waste",
+          "url": "https://www.ramseycountymn.gov/residents/recycling-waste/collection-sites/household-hazardous-waste",
+          "page_updated": null
+        }
+      ],
+      "last_checked": "2026-11-20"
+    },
+    {
+      "id": "dakota-recycling-zone",
+      "name": "Dakota County Recycling Zone",
+      "agency": "Dakota County",
+      "city": "Eagan",
+      "state": "MN",
+      "zip": "55121",
+      "address": "3365 Dodd Road (Highway 149), Eagan, MN 55121",
+      "phone": "952-891-7800",
+      "email": "recyclingzone@co.dakota.mn.us",
+      "website": "https://dakotacountymn.gov/residents/recycling-waste/recycling-zone-locations/recycling-zone",
+      "hours": [
+        {"days": "Wednesday (2026 hours)", "time": "9 a.m.–8 p.m."},
+        {"days": "Thursday (2026 hours)", "time": "noon–8 p.m."},
+        {"days": "Friday (2026 hours)", "time": "9 a.m.–5 p.m."},
+        {"days": "Saturday (2026 hours)", "time": "8 a.m.–5 p.m."},
+        {"days": "Sunday–Tuesday", "time": "Closed"}
+      ],
+      "office_hours": "Upcoming 2026 holiday closures listed: Thanksgiving Day, Christmas Eve, Christmas Day, and New Year's Day. Starting January 1, 2027, hours change to Wednesday–Friday 10 a.m.–6 p.m. and Saturday 8 a.m.–4 p.m.",
+      "residency": "Open to residents of Anoka, Carver, Dakota, Hennepin, Ramsey, Scott, and Washington counties.",
+      "proof_required": true,
+      "appointment": "No appointment is listed. Remain in your vehicle. Staff unload items from the trunk or very back of the vehicle. Have a credit card or exact change ready for TV, monitor, and tire fees. Staff will scan the barcode on the back of your license.",
+      "accepts": [
+        "Household chemicals and hazardous waste, including aerosols, antifreeze, auto and household batteries, bug killer, e-cigarettes and vaping devices (nicotine only), fire extinguishers, fireworks, fluorescent bulbs, gasoline, home sharps (no medications), household cleaners, lawn and garden products, mercury thermometers, paint, pool and spa chemicals, propane and helium tanks, thermostats, used oil and filters (containers no greater than 5 gallons), and weed killer",
+        "Electronics, including computers, laptops, phones, tablets, printers, game systems, and TVs or monitors ($10 each). The county says data is destroyed to U.S. Department of Defense standards.",
+        "Small household electronics (remove batteries when possible)",
+        "Recyclables including cardboard (cut no larger than 36\"×36\"), glass, metal, paper, many plastics, books, bicycles, cooking oil, eyeglasses, holiday lights, scrap metal, and drained lawn mowers or snow blowers",
+        "Standard automotive tires (see fees). No race car tires or slicks."
+      ],
+      "does_not_accept": [
+        "Appliances, dehumidifiers, humidifiers, microwaves, water heaters, and water softeners",
+        "Mattresses and box springs",
+        "Furniture, carpet, exercise equipment, and wood or lumber",
+        "Medicines and medical waste (home sharps are accepted if packed as directed)",
+        "Asbestos-containing or radioactive materials",
+        "Plastic bags, packing peanuts, Styrofoam, shredded paper, and yard waste"
+      ],
+      "fees": [
+        "TVs and monitors: $10 each.",
+        "Tires: 15\" or smaller $6; 16–17\" $7; 18–19\" $8; 20–22\" $10; add $1 if the tire is on the rim.",
+        "All other accepted items are listed as free."
+      ],
+      "notes": [
+        "Keep sharps in a rigid labeled container up front; all other items must be in the trunk or rear of the vehicle.",
+        "Gas cans and oil containers you want returned are tagged; come back the next open day with your stub.",
+        "A Reuse Zone offers free leftover products such as paints and cleaners. Dakota County does not guarantee those products.",
+        "This site does not accept mattresses."
+      ],
+      "item_flags": {
+        "mattresses": "no",
+        "paint": "yes",
+        "batteries_hhw": "yes",
+        "tvs": "yes_fee",
+        "tires": "yes_fee",
+        "appliances": "no",
+        "used_oil": "yes",
+        "recyclables": "yes",
+        "garbage": "no"
+      },
+      "sources": [
+        {
+          "title": "Dakota County — Recycling Zone",
+          "url": "https://dakotacountymn.gov/residents/recycling-waste/recycling-zone-locations/recycling-zone",
+          "page_updated": null
+        }
+      ],
+      "last_checked": "2026-11-20"
+    },
+    {
+      "id": "anoka-hhw-blaine",
+      "name": "Anoka County Household Hazardous Waste Facility",
+      "agency": "Anoka County Recycling & Resource Solutions",
+      "city": "Blaine",
+      "state": "MN",
+      "zip": "55449",
+      "address": "3230 101st Avenue NE, Blaine, MN 55449",
+      "phone": "763-324-3400",
+      "email": "recycle@anokacountymn.gov",
+      "website": "https://www.anokacountymn.gov/369/Household-Hazardous-Waste-Facility",
+      "hours": [
+        {"days": "November–March, Wednesday", "time": "1–7 p.m."},
+        {"days": "November–March, Saturday", "time": "9 a.m.–3 p.m."},
+        {"days": "April–October, Wednesday", "time": "1–7 p.m."},
+        {"days": "April–October, Thursday, Friday, and Saturday", "time": "9 a.m.–3 p.m."},
+        {"days": "Sunday–Tuesday (and winter Thursdays and Fridays)", "time": "Closed"}
+      ],
+      "office_hours": "Closed New Year's Day, Martin Luther King Jr. Day, Presidents' Day, Memorial Day, Juneteenth, Independence Day, Labor Day, Veterans Day, Thanksgiving Day and the following Friday, Christmas Eve, and Christmas Day.",
+      "residency": "Residents of Anoka, Carver, Dakota, Hennepin, Ramsey, Scott, and Washington counties. Sherburne and Wright County residents are not eligible. Businesses, schools, and other organizations are not permitted.",
+      "proof_required": true,
+      "appointment": "No appointment is listed. Drive to the back of the building, follow the cones, stay in your car, and have your ID ready to be scanned. Staff unload the items.",
+      "accepts": [
+        "Aerosol cans with contents remaining",
+        "Antifreeze, gasoline and other fuels, used motor oil, and used oil filters",
+        "Automotive and household batteries",
+        "Driveway sealer, paint (liquid only), paint stripper, paint thinner, varnish, and wood preservatives",
+        "Fluorescent, HID, and CFL bulbs",
+        "Household products that are corrosive, flammable, combustible, or poisonous; pesticides",
+        "Lead and lead tackle, mercury",
+        "Propane tanks",
+        "Sharps",
+        "Vape pens and e-cigarettes"
+      ],
+      "does_not_accept": [
+        "Appliances",
+        "Asbestos",
+        "Dried paint",
+        "Electronics",
+        "Empty containers",
+        "Explosives",
+        "Garbage",
+        "Radioactive wastes",
+        "Tires"
+      ],
+      "fees": [
+        "The county states there is no charge to use the site for eligible residents."
+      ],
+      "notes": [
+        "This is a hazardous-waste facility, not a transfer station. It does not take mattresses, electronics, tires, appliances, or garbage.",
+        "Paint must be liquid; dried paint is not accepted.",
+        "Containers must be 5 gallons or less, tightly sealed, labeled, and kept upright in a sturdy box. Do not mix products. Do not tape fluorescent tubes together.",
+        "Veolia ES Technical Solutions, L.L.C. operates the facility under contract to Anoka County."
+      ],
+      "item_flags": {
+        "mattresses": "no",
+        "paint": "liquid_only",
+        "batteries_hhw": "yes",
+        "tvs": "no",
+        "tires": "no",
+        "appliances": "no",
+        "used_oil": "yes",
+        "recyclables": "no",
+        "garbage": "no"
+      },
+      "sources": [
+        {
+          "title": "Anoka County — Household Hazardous Waste Facility",
+          "url": "https://www.anokacountymn.gov/369/Household-Hazardous-Waste-Facility",
+          "page_updated": null
+        }
+      ],
+      "last_checked": "2026-11-20"
+    }
+  ]
+}

@@ -26,6 +26,8 @@ jobs:
           python-version: "3.12"
       - name: Configure Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - name: Build site
         run: python3 build.py
         env:

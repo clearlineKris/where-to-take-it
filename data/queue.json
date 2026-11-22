@@ -1,0 +1,41 @@
+{
+  "description": "Nightly.sh publishes the first guide with status=queued and complete body text, then rebuilds. Guides that are only placeholders stay blocked until research is added.",
+  "upcoming_research": [
+    {
+      "id": "batteries-minneapolis",
+      "title": "Where to take household and car batteries in Minneapolis",
+      "status": "needs_research",
+      "notes": "Source Hennepin Green Disposal Guide batteries page, city rules, and official Call2Recycle or county lists before writing."
+    },
+    {
+      "id": "tv-minneapolis",
+      "title": "Where to take a TV or computer monitor in Minneapolis",
+      "status": "needs_research",
+      "notes": "Fees are already in locations.json ($10 at Hennepin and Dakota; voucher or $25 at the city transfer station). Still need the official electronics pages and any Best Buy or manufacturer take-back rules, cited, before publishing."
+    },
+    {
+      "id": "tires-minneapolis",
+      "title": "Where to take old tires in Minneapolis",
+      "status": "needs_research",
+      "notes": "City voucher limits and Hennepin/Dakota fee schedules are already sourced. Confirm retailer take-back and any MPCA page before writing."
+    },
+    {
+      "id": "appliances-minneapolis",
+      "title": "Where to take a refrigerator, washer, or window AC in Minneapolis",
+      "status": "needs_research",
+      "notes": "City recycling-week curbside and Hennepin $15 appliance fee are partly sourced. Need official refrigerant/door-removal rules before publishing."
+    },
+    {
+      "id": "used-oil-minneapolis",
+      "title": "Where to take used motor oil in Minneapolis",
+      "status": "needs_research",
+      "notes": "Hennepin, Dakota, Anoka, and Ramsey all mention used oil. Get each official oil page and any 24/7 Ramsey collection details before writing."
+    },
+    {
+      "id": "sharps-minneapolis",
+      "title": "Where to take needles and sharps in Minneapolis",
+      "status": "needs_research",
+      "notes": "Do not publish until official prep rules (container type, labeling) are copied from the Hennepin Green Disposal Guide and other county pages."
+    }
+  ]
+}

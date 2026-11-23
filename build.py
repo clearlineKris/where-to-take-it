@@ -376,6 +376,10 @@ def build_all() -> dict:
         shutil.rmtree(SITE)
     SITE.mkdir(parents=True)
     shutil.copy(TEMPLATES / "styles.css", SITE / "styles.css")
+    # Empty .nojekyll at the published root so GitHub Pages will not
+    # run Jekyll on this static site if a branch deploy is used later.
+    # Actions artifact deploys already skip Jekyll; this is belt-and-suspenders.
+    (SITE / ".nojekyll").touch()
 
     build_home(locations, guides)
     build_listing(loc_data["region"], locations)

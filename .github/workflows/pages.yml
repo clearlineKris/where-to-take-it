@@ -28,6 +28,8 @@ jobs:
         run: python3 build.py
         env:
           SITE_BASE_PATH: /where-to-take-it
+      - name: Keep GitHub from running Jekyll on the artifact
+        run: touch site/.nojekyll
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

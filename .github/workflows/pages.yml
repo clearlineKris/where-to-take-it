@@ -1,47 +1,17 @@
-name: Deploy GitHub Pages
+# Retired: Where to Take It is hosted on Vercel, not GitHub Pages.
+# This file is kept only so a leftover Pages environment is not
+# accidentally re-enabled by a new workflow with the same name.
+# Do not add a push trigger.
+name: Deploy GitHub Pages (retired)
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: false
-
 jobs:
-  build:
+  skipped:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: Build site
-        run: python3 build.py
-        env:
-          SITE_BASE_PATH: /where-to-take-it
-      - name: Keep GitHub from running Jekyll on the artifact
-        run: touch site/.nojekyll
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Explain
+        run: |
+          echo "This workflow is retired. The site deploys from Vercel on pushes to main."
+          exit 1

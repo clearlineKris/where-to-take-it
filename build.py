@@ -56,14 +56,14 @@ def esc(value) -> str:
     return html.escape("" if value is None else str(value), quote=True)
 
 
-DEFAULT_BASE_PATH = "/where-to-take-it"
+DEFAULT_BASE_PATH = ""
 
 
 def site_base() -> str:
-    """Public URL prefix. Default is the GitHub Pages project path.
+    """Public URL prefix. Default is the site root (Vercel).
 
-    Override with SITE_BASE_PATH. Use an empty value to preview locally
-    at the server root: SITE_BASE_PATH= python3 build.py
+    Override with SITE_BASE_PATH if the site is ever served from a
+    subdirectory. An empty value keeps links at the domain root.
     """
     if "SITE_BASE_PATH" in os.environ:
         return os.environ["SITE_BASE_PATH"].rstrip("/")
@@ -71,33 +71,55 @@ def site_base() -> str:
 
 
 def href(path: str) -> str:
-    """Root-relative URL so links work under /where-to-take-it/."""
-    path = str(path).lstrip("/")
+    """Root-relative URL. Directories keep a trailing slash when given."""
+    raw = str(path)
+    trailing = raw.endswith("/")
+    path = raw.lstrip("/")
     base = site_base()
-    return f"{base}/{path}" if base else f"/{path}"
+    url = f"{base}/{path}" if base else f"/{path}"
+    if trailing and not url.endswith("/"):
+        url += "/"
+    return url
 
 
 def page_shell(title: str, path: str, content: str, description: str = "") -> str:
     desc = description or "Official drop-off hours, fees, and accepted items, checked against the city or county page."
+    fonts = (
+        "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650;9..144,700"
+        "&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+    )
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{esc(title)} — Where to Take It</title>
+  <title>{esc(title) if title.strip() != "Where to Take It" else "Where to Take It"}</title>
   <meta name="description" content="{esc(desc)}">
+  <meta name="theme-color" content="#f3eee3">
+  <link rel="icon" href="{href('favicon.svg')}" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="{esc(fonts)}">
   <link rel="stylesheet" href="{href('styles.css')}">
+  <script src="{href('search.js')}" defer></script>
 </head>
 <body>
   <a class="skiplink" href="#content">Skip to content</a>
   <p class="disclaimer">This is an independent directory, not a government website. Hours and fees change — confirm with the facility before you go.</p>
   <header class="site">
     <div class="wrap brandrow">
-      <a class="brand" href="{href('index.html')}">Where to Take It<span>Drop-off hours, fees, and what they actually accept</span></a>
-      <nav aria-label="Primary">
+      <a class="brand" href="{href('index.html')}">
+        <span class="logo-mark" aria-hidden="true"><span class="logo-pin"></span></span>
+        <span class="brand-text">
+          <span class="brand-name">Where to Take It</span>
+          <span class="brand-tag">Drop-off hours, fees, and what they actually accept</span>
+        </span>
+      </a>
+      <nav class="primary" aria-label="Primary">
         <a href="{href('index.html')}">Home</a>
-        <a href="{href('metro/twin-cities/index.html')}">Twin Cities</a>
-        <a href="{href('about/index.html')}">About &amp; sources</a>
+        <a href="{href('metro/twin-cities/')}">Twin Cities</a>
+        <a href="{href('about/')}">About &amp; sources</a>
+        <a class="nav-cta" href="{href('metro/twin-cities/')}">Browse sites</a>
       </nav>
     </div>
   </header>
@@ -109,7 +131,7 @@ def page_shell(title: str, path: str, content: str, description: str = "") -> st
   <footer class="site">
     <div class="wrap">
       <p>Where to Take It is an independent, unofficial directory. Listing a site does not mean the facility endorses this project. Always check the official page or call before you drive.</p>
-      <p><a href="{href('about/index.html')}">How entries are sourced</a></p>
+      <p><a href="{href('about/')}">How entries are sourced</a></p>
     </div>
   </footer>
 </body>
@@ -145,22 +167,53 @@ def flag_html(code: str) -> str:
     return f'<span class="flag {cls}">{esc(label)}</span>'
 
 
-def location_card(location: dict, heading: str = "h2") -> str:
-    loc_url = href(f"locations/{location['id']}/index.html")
+def location_search_blob(location: dict) -> str:
     flags = location.get("item_flags", {})
-    chips = " ".join(
-        f'{flag_html(flags.get(key, "not_listed"))} <span class="addr">{esc(label)}</span>'
+    parts = [
+        location.get("name", ""),
+        location.get("agency", ""),
+        location.get("city", ""),
+        location.get("address", ""),
+        location.get("residency", ""),
+        " ".join(location.get("accepts", [])),
+        " ".join(location.get("fees", [])),
+    ]
+    for key, label in ITEM_COLUMNS:
+        parts.append(label)
+        parts.append(key.replace("_", " "))
+        if flags.get(key) in {"yes", "yes_fee", "yes_fee_or_voucher", "liquid_only", "small_only", "limited"}:
+            parts.append(label)
+    return " ".join(parts)
+
+
+def accepted_item_keys(location: dict) -> str:
+    flags = location.get("item_flags", {})
+    keys = []
+    for key, _label in ITEM_COLUMNS:
+        code = flags.get(key, "not_listed")
+        if code not in {"no", "not_listed"}:
+            keys.append(key)
+    return " ".join(keys)
+
+
+def location_card(location: dict, heading: str = "h2") -> str:
+    loc_url = href(f"locations/{location['id']}/")
+    flags = location.get("item_flags", {})
+    chips = "".join(
+        f'<span class="item-row"><span class="addr">{esc(label)}</span>{flag_html(flags.get(key, "not_listed"))}</span>'
         for key, label in ITEM_COLUMNS
     )
     phone = f'<p>Phone: <span class="phone">{esc(location["phone"])}</span></p>' if location.get("phone") else ""
+    search = esc(location_search_blob(location))
+    items = esc(accepted_item_keys(location))
     return f"""
-<article class="loc">
+<article class="loc" data-filter-item data-search="{search}" data-items="{items}">
   <{heading}><a href="{loc_url}">{esc(location["name"])}</a></{heading}>
   <p class="addr">{esc(location["address"])}<br>{esc(location["agency"])}</p>
   {hours_html(location)}
   {phone}
   <p>{esc(location["residency"])}</p>
-  <p>{chips}</p>
+  <div class="item-row">{chips}</div>
   <p class="meta">Last checked {esc(location["last_checked"])}. <a href="{loc_url}">Full listing</a> · <a href="{esc(location["website"])}">Official page</a></p>
 </article>
 """
@@ -190,29 +243,64 @@ def build_home(locations: list, guides: list) -> None:
         )
     if not guide_cards:
         guide_cards.append("<p>No guides published yet.</p>")
+    listing = href("metro/twin-cities/")
+    mattress = href("mn/minneapolis/mattress/")
+    shortcuts = [
+        ("Mattresses", f"{mattress}"),
+        ("Paint", f"{listing}?q=paint"),
+        ("Batteries", f"{listing}?item=batteries_hhw"),
+        ("TVs", f"{listing}?item=tvs"),
+        ("Tires", f"{listing}?item=tires"),
+        ("Appliances", f"{listing}?item=appliances"),
+        ("Used oil", f"{listing}?item=used_oil"),
+    ]
+    chips = "".join(
+        f'<li><a href="{esc(url)}">{esc(label)}</a></li>' for label, url in shortcuts
+    )
     content = f"""
 <section class="hero">
-  <div>
+  <div class="hero-copy">
     <p class="kicker">A practical drop-off directory</p>
     <h1>Find the place that will actually take the thing in your trunk.</h1>
+    <div class="hero-rule" aria-hidden="true"></div>
     <p class="dek">People search every day for where to drop off paint, mattresses, batteries, TVs, tires, and used oil. This site answers with official hours, fees, residency rules, and the “do not bring” list — copied from the city or county page and dated.</p>
-    <p><a href="{href('metro/twin-cities/index.html')}">Browse Twin Cities drop-off sites</a> · <a href="{href('mn/minneapolis/mattress/index.html')}">Where to take a mattress in Minneapolis</a></p>
+    <ul class="hero-principles" aria-label="How this directory works">
+      <li>Official hours and fees</li>
+      <li>Residency rules, written plainly</li>
+      <li>Sourced and dated</li>
+    </ul>
+    <form class="hero-search" action="{listing}" method="get" role="search">
+      <label for="home-q">What do you need to drop off?</label>
+      <div class="hero-search-row">
+        <input id="home-q" type="search" name="q" placeholder="Mattress, paint, batteries, a TV…">
+        <button type="submit">Find a site</button>
+      </div>
+      <ul class="item-shortcuts">{chips}</ul>
+    </form>
   </div>
-  <aside class="callout plain">
+  <aside class="hero-aside">
     <p class="kicker">First metro</p>
     <h2>Minneapolis–Saint Paul</h2>
     <p>Six official city and county sites, with a comparison of who takes mattresses, paint, TVs, tires, appliances, batteries, and used oil.</p>
-    <p><a href="{href('metro/twin-cities/index.html')}">Open the Twin Cities listing</a></p>
+    <p><a class="nav-cta" href="{listing}">Open the Twin Cities listing</a></p>
   </aside>
 </section>
 <section>
   <h2>Useful pages</h2>
   <div class="grid">{''.join(guide_cards)}</div>
 </section>
-<section>
+<section data-filter-root data-filter-sync="off">
   <h2>Featured locations</h2>
+  <div class="filter-bar">
+    <label for="home-sites">Filter these sites</label>
+    <div class="filter-controls">
+      <input id="home-sites" type="search" data-filter-input placeholder="Name, city, or item…">
+    </div>
+    <p class="filter-status" data-filter-status aria-live="polite"></p>
+  </div>
   <div class="grid">{loc_preview}</div>
-  <p><a href="{href('metro/twin-cities/index.html')}">See all Twin Cities sites</a></p>
+  <p class="filter-empty callout" data-filter-empty>No featured site matches that search. Try the full <a href="{listing}">Twin Cities listing</a>.</p>
+  <p><a href="{listing}">See all Twin Cities sites</a></p>
 </section>
 <section>
   <h2>How this is built</h2>
@@ -229,13 +317,22 @@ def build_home(locations: list, guides: list) -> None:
     )
 
 
+def filter_chips_html() -> str:
+    buttons = []
+    for key, label in ITEM_COLUMNS:
+        buttons.append(
+            f'<button type="button" data-filter-chip="{esc(key)}" aria-pressed="false">{esc(label)}</button>'
+        )
+    return "".join(buttons)
+
+
 def build_listing(region: dict, locations: list) -> None:
     rows = []
     for loc in locations:
         flags = loc.get("item_flags", {})
         cells = "".join(f"<td>{flag_html(flags.get(key, 'not_listed'))}</td>" for key, _ in ITEM_COLUMNS)
         rows.append(
-            f'<tr><th scope="row"><a href="{href(f"locations/{loc['id']}/index.html")}">{esc(loc["name"])}</a><br><span class="addr">{esc(loc["city"])}</span></th>{cells}</tr>'
+            f'<tr><th scope="row"><a href="{href(f"locations/{loc["id"]}/")}">{esc(loc["name"])}</a><br><span class="addr">{esc(loc["city"])}</span></th>{cells}</tr>'
         )
     head = "".join(f"<th>{esc(label)}</th>" for _, label in ITEM_COLUMNS)
     cards = "\n".join(location_card(loc, "h2") for loc in locations)
@@ -244,20 +341,34 @@ def build_listing(region: dict, locations: list) -> None:
 <h1>{esc(region["name"])} drop-off sites</h1>
 <p class="dek">{esc(region["summary"])}</p>
 <p class="meta">{len(locations)} facilities checked November 20, 2026. The seven-county metro, as used by several of these sites, is {esc(", ".join(region["seven_county"]))}.</p>
-<h2>What each site takes</h2>
-<p>Green means the official page says they take it. Gold means there is a fee or a confirmation gap. Red means the official page says no, or the item is not part of that facility’s job (for example, a hazardous-waste site that does not take mattresses).</p>
-<table>
-  <thead><tr><th>Site</th>{head}</tr></thead>
-  <tbody>
-    {''.join(rows)}
-  </tbody>
-</table>
-<p class="meta">“Likely” or “not listed” is not a yes. Call or read the official page before you load the car.</p>
-<h2>The facilities</h2>
-{cards}
+<div data-filter-root>
+  <form class="filter-bar" role="search">
+    <label for="site-filter">Search or filter sites</label>
+    <div class="filter-controls">
+      <input id="site-filter" type="search" name="q" data-filter-input placeholder="Name, city, agency, or item…">
+      <button type="submit">Filter</button>
+    </div>
+    <div class="filter-chips" role="group" aria-label="Filter by item">{filter_chips_html()}</div>
+    <p class="filter-status" data-filter-status aria-live="polite"></p>
+  </form>
+  <h2>What each site takes</h2>
+  <p>Green means the official page says they take it. Gold means there is a fee or a confirmation gap. Red means the official page says no, or the item is not part of that facility’s job (for example, a hazardous-waste site that does not take mattresses).</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Site</th>{head}</tr></thead>
+    <tbody>
+      {''.join(rows)}
+    </tbody>
+  </table>
+  </div>
+  <p class="meta">“Likely” or “not listed” is not a yes. Call or read the official page before you load the car.</p>
+  <h2>The facilities</h2>
+  {cards}
+  <p class="filter-empty callout" data-filter-empty>No facility matches that search. Clear the filters or try another item.</p>
+</div>
 <section class="sources">
   <h2>Sources</h2>
-  <p>Each card links to the official page used for that listing. See also the <a href="{href('about/index.html')}">about page</a>.</p>
+  <p>Each card links to the official page used for that listing. See also the <a href="{href('about/')}">about page</a>.</p>
 </section>
 """
     write(
@@ -274,28 +385,46 @@ def build_location(location: dict) -> None:
     email = f'<p>Email: <a href="mailto:{esc(location["email"])}">{esc(location["email"])}</a></p>' if location.get("email") else ""
     appt = f'<h2>Before you go</h2><p>{esc(location["appointment"])}</p>' if location.get("appointment") else ""
     flags = location.get("item_flags", {})
-    chips = " ".join(
-        f'{flag_html(flags.get(key, "not_listed"))} <span style="margin-right:0.7rem">{esc(label)}</span>'
+    chips = "".join(
+        f'<span class="item-row"><span class="addr">{esc(label)}</span>{flag_html(flags.get(key, "not_listed"))}</span>'
         for key, label in ITEM_COLUMNS
     )
+    official = esc(location["website"])
+    first_source = (location.get("sources") or [{}])[0]
+    source_title = esc(first_source.get("title") or "Official page")
+    source_url = esc(first_source.get("url") or location.get("website") or "")
     content = f"""
 <p class="kicker">{esc(location["city"])}, {esc(location["state"])}</p>
 <h1>{esc(location["name"])}</h1>
 <p class="dek">{esc(location["agency"])} · {esc(location["address"])}</p>
-<p class="meta">Last checked {esc(location["last_checked"])}. <a href="{esc(location["website"])}">Official page</a></p>
-<p>{chips}</p>
-<h2>Hours</h2>
-{hours_html(location)}
+<p class="meta">Last checked {esc(location["last_checked"])}. <a href="{official}">Official page</a></p>
+<div class="item-row">{chips}</div>
+<div class="fact-grid">
+  <article class="fact-card">
+    <h2>Hours</h2>
+    {hours_html(location)}
+  </article>
+  <article class="fact-card">
+    <h2>Fees</h2>
+    {bullets(location.get("fees", []))}
+  </article>
+  <article class="fact-card">
+    <h2>Accepts</h2>
+    {bullets(location.get("accepts", [])[:8])}
+  </article>
+  <article class="fact-card">
+    <h2>Source</h2>
+    <p>Last checked {esc(location["last_checked"])}.</p>
+    <p><a href="{source_url}">{source_title}</a></p>
+    <p>Always confirm on the official page before you go.</p>
+  </article>
+</div>
 <h2>Who can use it</h2>
 <p>{esc(location["residency"])}</p>
 {"<p>Proof of residency is required.</p>" if location.get("proof_required") else ""}
 <p>Phone: <span class="phone">{esc(location.get("phone") or "See official page")}</span></p>
 {email}
 {appt}
-<h2>Fees</h2>
-{bullets(location.get("fees", []))}
-<h2>Accepted</h2>
-{bullets(location.get("accepts", []))}
 <h2>Not accepted</h2>
 {bullets(location.get("does_not_accept", []))}
 <h2>Notes</h2>
@@ -304,7 +433,7 @@ def build_location(location: dict) -> None:
   <h2>Sources</h2>
   {sources}
 </section>
-<p><a href="{href('metro/twin-cities/index.html')}">Back to the Twin Cities listing</a></p>
+<p><a href="{href('metro/twin-cities/')}">Back to the Twin Cities listing</a></p>
 """
     rel = f"locations/{location['id']}/index.html"
     write(SITE / rel, location["name"], rel, content, f"Hours, fees, and accepted items at {location['name']}.")
@@ -323,17 +452,47 @@ def build_guide(guide: dict, locations_by_id: dict) -> None:
         loc = locations_by_id.get(lid)
         if loc:
             related.append(location_card(loc, "h3"))
+    sources = guide.get("sources") or []
+    first = sources[0] if sources else {}
     content = f"""
 <p class="kicker">{esc(guide["item_label"])} · {esc(guide["city"])}, {esc(guide["state"])}</p>
 <h1>{esc(guide["h1"])}</h1>
 <p class="dek">{esc(guide["dek"])}</p>
-<p class="meta">Last checked {esc(guide["last_checked"])}.</p>
+<div class="fact-grid">
+  <article class="fact-card">
+    <h2>Accepts</h2>
+    <p>This guide covers {esc(guide["item_label"]).lower()} in {esc(guide["city"])}. Each related site below shows whether it takes the item, and whether there is a fee.</p>
+  </article>
+  <article class="fact-card">
+    <h2>Fees</h2>
+    <p>Fees vary by facility and sometimes by size. Read the site cards and confirm on the official page before you load the car.</p>
+  </article>
+  <article class="fact-card">
+    <h2>Hours</h2>
+    <p>Hours are listed on each related drop-off site. They change — check the official page for the day you plan to go.</p>
+  </article>
+  <article class="fact-card">
+    <h2>Source</h2>
+    <p>Last checked {esc(guide["last_checked"])}.</p>
+    <p><a href="{esc(first.get("url") or href("about/"))}">{esc(first.get("title") or "Sources")}</a></p>
+  </article>
+</div>
 {''.join(sections)}
-<h2>Related drop-off sites</h2>
-<div class="grid">{''.join(related)}</div>
+<section data-filter-root data-filter-sync="off">
+  <h2>Related drop-off sites</h2>
+  <div class="filter-bar" role="search">
+    <label for="guide-filter">Search these sites</label>
+    <div class="filter-controls">
+      <input id="guide-filter" type="search" data-filter-input placeholder="Name, city, or rule…">
+    </div>
+    <p class="filter-status" data-filter-status aria-live="polite"></p>
+  </div>
+  <div class="grid">{''.join(related)}</div>
+  <p class="filter-empty callout" data-filter-empty>No related site matches that search.</p>
+</section>
 <section class="sources">
   <h2>Sources</h2>
-  {source_list(guide.get("sources", []))}
+  {source_list(sources)}
 </section>
 """
     rel = guide["path"]
@@ -353,7 +512,7 @@ def build_about(locations: list, guides: list) -> None:
 <h2>What is on the site now</h2>
 <p>{len(locations)} Twin Cities facilities and {len(published)} published item guide{'' if len(published)==1 else 's'}. {len(queued)} researched guide{'' if len(queued)==1 else 's'} {('is' if len(queued)==1 else 'are')} queued for a later nightly build.</p>
 <ul class="facts">
-  <li><a href="{href('metro/twin-cities/index.html')}">Twin Cities drop-off listing</a></li>
+  <li><a href="{href('metro/twin-cities/')}">Twin Cities drop-off listing</a></li>
   {''.join(f'<li><a href="{href(g["path"])}">{esc(g["title"])}</a></li>' for g in published)}
 </ul>
 <h2>Reuse of the data</h2>
@@ -376,9 +535,9 @@ def build_all() -> dict:
         shutil.rmtree(SITE)
     SITE.mkdir(parents=True)
     shutil.copy(TEMPLATES / "styles.css", SITE / "styles.css")
-    # Empty .nojekyll at the published root so GitHub Pages will not
-    # run Jekyll on this static site if a branch deploy is used later.
-    # Actions artifact deploys already skip Jekyll; this is belt-and-suspenders.
+    shutil.copy(TEMPLATES / "search.js", SITE / "search.js")
+    shutil.copy(TEMPLATES / "favicon.svg", SITE / "favicon.svg")
+    # Harmless if a static host ever runs Jekyll on the output folder.
     (SITE / ".nojekyll").touch()
 
     build_home(locations, guides)
